@@ -12,6 +12,7 @@ import Typist
 import UIKit
 
 class AuthenticationViewController: UIViewController, UIViewControllerTransitioningDelegate {
+
     private let keyboard = Typist.shared
 
     @IBOutlet var logoFrame: UIView!
@@ -24,8 +25,8 @@ class AuthenticationViewController: UIViewController, UIViewControllerTransition
     @IBOutlet var logoFrameTopLayoutConstraint: NSLayoutConstraint!
     @IBOutlet var textAreaYLayoutConstraint: NSLayoutConstraint!
 
+    
     // MARK: - View life
-
     /// ---------------------------------------------------------------------------------------
 
     override func viewDidLoad() {
@@ -39,12 +40,10 @@ class AuthenticationViewController: UIViewController, UIViewControllerTransition
 
         prepareKeyboardSupport()
 
-        usernameTextField.text = "JackoPlane"
-        passwordTextField.text = "H@13cmuser"
-
-//        loginButton.layer.borderColor = UIColor.white.withAlphaComponent(0.6).cgColor
-//        loginButton.layer.borderWidth = 2
-//        view.sendSubview(toBack: backgroundView)
+        #if DEBUG
+            usernameTextField.text = "JackoPlane"
+            passwordTextField.text = "H@13cmuser"
+        #endif
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -53,10 +52,22 @@ class AuthenticationViewController: UIViewController, UIViewControllerTransition
         // Update center Y position based on safe area
         textAreaYLayoutConstraint.constant = (35 + (view.safeAreaInsets.bottom / 2)) * -1
 
+        // Adds support for "fast login" for debugging purposes
+        #if DEBUG
+            self.view.isUserInteractionEnabled = false // Disable interactions to prevent "double" logins
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: { [weak self] in
+                self?.login()
+                self?.view.isUserInteractionEnabled = false
+            })
+        #endif
+        
+        
         // Animate!
         usernameTextField.becomeFirstResponder()
+        
     }
 
+    
     /// Keyboard
     /// -----------------------------------------------------------------------------------------------
 
@@ -118,7 +129,7 @@ class AuthenticationViewController: UIViewController, UIViewControllerTransition
     /// Actions
     /// -----------------------------------------------------------------------------------------------
 
-    @IBAction func login(_: Any) {
+    @IBAction func login(_: Any? = nil) {
         guard let emailAddress = self.usernameTextField.text else { return }
         guard let password = self.passwordTextField.text else { return }
 
@@ -130,24 +141,29 @@ class AuthenticationViewController: UIViewController, UIViewControllerTransition
         loginButton.startLoadingAnimation()
 
         // Attempt to login
-        Account.login(username: emailAddress, password: password) { _, _ in
-
-            // Load the main window now..
-//            self.loginButton.
-
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainNavigtionController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController")
-
-            DispatchQueue.main.async {
-                self.loginButton.startFinishAnimation(0) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                        mainNavigtionController.transitioningDelegate = self
-
-                        UIApplication.shared.keyWindow?.rootViewController = mainNavigtionController
+        Account.login(username: emailAddress, password: password) { (result: Result<Account, Error>) in
+            
+            switch result {
+            case .failure(let error):
+                print("Login error: \(error)")
+                
+            case .success(let account):
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainNavigtionController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController")
+                
+                DispatchQueue.main.async {
+                    self.loginButton.startFinishAnimation(0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                            mainNavigtionController.transitioningDelegate = self
+                            
+                            UIApplication.shared.keyWindow?.rootViewController = mainNavigtionController
+                        }
                     }
                 }
             }
-
+            
+        
+    
 //            self.performSegue(withIdentifier: "success", sender: nil)
         }
     }
@@ -199,16 +215,16 @@ class AuthenticationViewController: UIViewController, UIViewControllerTransition
 public extension UIView.AnimationOptions {
     init(curve: UIView.AnimationCurve) {
         switch curve {
-        case .easeIn:
-            self = [.curveEaseIn]
-        case .easeOut:
-            self = [.curveEaseOut]
-        case .easeInOut:
-            self = [.curveEaseInOut]
-        case .linear:
-            self = [.curveLinear]
-        default:
-            self = [.curveLinear]
+            case .easeIn:
+                self = [.curveEaseIn]
+            case .easeOut:
+                self = [.curveEaseOut]
+            case .easeInOut:
+                self = [.curveEaseInOut]
+            case .linear:
+                self = [.curveLinear]
+            default:
+                self = [.curveLinear]
         }
     }
 }

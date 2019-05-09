@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Subscription: Decodable {
+public struct Subscription: Codable {
     /// Creator identifier
     public internal(set) var creator: String
 
@@ -22,7 +22,7 @@ public struct Subscription: Decodable {
     public internal(set) var plan: Subscription.Plan?
 
     /// Subscription Plan
-    public struct Plan: Decodable {
+    public struct Plan: Codable {
         /// Identifier
         var identifier: String
 
@@ -46,5 +46,23 @@ public struct Subscription: Decodable {
 
         /// Logo
         var logo: String?
+        
+        
+        
+        public func currencyLocale() -> Locale?
+        {
+            return Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == currency }
+        }
+        
+        
+        public func formattedPrice() -> String
+        {
+            let formatter = NumberFormatter()
+            formatter.locale = currencyLocale() ?? .current
+            formatter.numberStyle = .currency
+            
+            let parsedPrice = Double(price) ?? 0
+            return formatter.string(from: parsedPrice as NSNumber) ?? "\(price) \(currency)"
+        }
     }
 }

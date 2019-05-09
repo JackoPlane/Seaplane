@@ -9,8 +9,8 @@
 import Foundation
 
 public extension Account {
+    
     // MARK: - Coding Keys
-
     // ------------------------------------------------------------------------------
 
     enum CodingKeys: String, CodingKey {
@@ -23,6 +23,7 @@ public extension Account {
         case displayName
         case emailAddress = "email"
         case profileImage
+        case subscriptions = "subscriptions"
     }
 
     enum ProfileImageKeys: String, CodingKey {
@@ -32,10 +33,10 @@ public extension Account {
     }
 
     // MARK: - Codable
-
     // ------------------------------------------------------------------------------
 
-    init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws
+    {
         // Extract the top-level values ("user")
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -48,6 +49,8 @@ public extension Account {
         emailAddress = try? account.decode(String.self, forKey: .emailAddress)
         displayName = try? account.decode(String.self, forKey: .displayName)
 
+        subscriptions = try? account.decode(Subscriptions.self, forKey: .subscriptions)
+        
         // Profile image
         let profileImageValues = try account.nestedContainer(keyedBy: ProfileImageKeys.self, forKey: .profileImage)
         profileImage = try profileImageValues.decode(String.self, forKey: .path)
@@ -59,5 +62,9 @@ public extension Account {
         try container.encode(identifier, forKey: .identifier)
         try container.encode(username, forKey: .username)
         try container.encode(emailAddress, forKey: .emailAddress)
+        
+        if let subscriptions = subscriptions {
+            try container.encode(subscriptions, forKey: .subscriptions)
+        }
     }
 }

@@ -6,10 +6,11 @@
 //  Copyright © 2018 Yoshimi Robotics. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import Foundation
 
 public class VideoCollectionViewCell: UICollectionViewCell {
+    
     /// Thumbnail image view
     @IBOutlet var thumbnailImageView: UIImageView?
 

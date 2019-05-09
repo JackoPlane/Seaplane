@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -88,6 +88,10 @@
 		0478EF8E21623C7C002CED48 /* BLTNBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0478EF2921623C60002CED48 /* BLTNBoard.framework */; };
 		0478EF8F21623C7C002CED48 /* BLTNBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0478EF2921623C60002CED48 /* BLTNBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04BE87A3226828C900396CAA /* DataRequest+cURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE87A2226828C900396CAA /* DataRequest+cURL.swift */; };
+		04D73DB822813F3D00403569 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D73DB722813F3D00403569 /* ProfileViewController.swift */; };
+		04D73DBA2281547000403569 /* Account+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D73DB92281547000403569 /* Account+Network.swift */; };
+		04D73DBB2281547000403569 /* Account+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D73DB92281547000403569 /* Account+Network.swift */; };
+		04D73DBE22815DAA00403569 /* SettingsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D73DBD22815DAA00403569 /* SettingsHeaderTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -634,6 +638,9 @@
 		0478EE6021621AC7002CED48 /* AuthenticationLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLinkViewController.swift; sourceTree = "<group>"; };
 		0478EF2421623C60002CED48 /* BLTNBoard.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = BLTNBoard.xcodeproj; sourceTree = "<group>"; };
 		04BE87A2226828C900396CAA /* DataRequest+cURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataRequest+cURL.swift"; sourceTree = "<group>"; };
+		04D73DB722813F3D00403569 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		04D73DB92281547000403569 /* Account+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Network.swift"; sourceTree = "<group>"; };
+		04D73DBD22815DAA00403569 /* SettingsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -777,9 +784,10 @@
 		0440E91521608E0000BCACF4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				04D73DB622813F2E00403569 /* Profile */,
 				040A7E7D2161F97600764825 /* Video Player */,
 				040A7E2B2161EC5A00764825 /* Authentication */,
-				0440E91621608E1400BCACF4 /* FeedViewController.swift */,
+				04D73DB52281398B00403569 /* Video Feed */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -787,6 +795,7 @@
 		0440E91821608FA700BCACF4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04D73DBC22815D9300403569 /* Table View Cells */,
 				0440E91921608FAC00BCACF4 /* Collection View Cells */,
 			);
 			path = Views;
@@ -1043,11 +1052,36 @@
 		04BE87CB2268297B00396CAA /* Network Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				04D73DB92281547000403569 /* Account+Network.swift */,
 				0440E90A2160778A00BCACF4 /* Subscription+Network.swift */,
 				0440E913216081BB00BCACF4 /* Video+Network.swift */,
 				0440ECDC2160B50E00BCACF4 /* Creator+Network.swift */,
 			);
 			path = "Network Extensions";
+			sourceTree = "<group>";
+		};
+		04D73DB52281398B00403569 /* Video Feed */ = {
+			isa = PBXGroup;
+			children = (
+				0440E91621608E1400BCACF4 /* FeedViewController.swift */,
+			);
+			path = "Video Feed";
+			sourceTree = "<group>";
+		};
+		04D73DB622813F2E00403569 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				04D73DB722813F3D00403569 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		04D73DBC22815D9300403569 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				04D73DBD22815DAA00403569 /* SettingsHeaderTableViewCell.swift */,
+			);
+			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1057,6 +1091,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 040A7E902161FF1700764825 /* Build configuration list for PBXNativeTarget "Floatplane TV" */;
 			buildPhases = (
+				04D73D60228115C900403569 /* SwiftFormat */,
 				040A7E802161FF1300764825 /* Sources */,
 				040A7E812161FF1300764825 /* Frameworks */,
 				040A7E822161FF1300764825 /* Resources */,
@@ -1134,7 +1169,7 @@
 				};
 			};
 			buildConfigurationList = 044CCBE0214F997500569030 /* Build configuration list for PBXProject "Floatplane" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1602,6 +1637,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		04D73D60228115C900403569 /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat .\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		040A7E802161FF1300764825 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1622,6 +1678,7 @@
 				0478EE6821621F35002CED48 /* Video+Codable.swift in Sources */,
 				0478EE5B21621A60002CED48 /* LandscapeAVPlayerController.swift in Sources */,
 				0478EE6921621F35002CED48 /* Video+Network.swift in Sources */,
+				04D73DBB2281547000403569 /* Account+Network.swift in Sources */,
 				0478EE4521621A22002CED48 /* FeedViewController.swift in Sources */,
 				0478EE6221621F30002CED48 /* Subscription+Network.swift in Sources */,
 				0478EE6C21621F35002CED48 /* Creator+Network.swift in Sources */,
@@ -1636,10 +1693,12 @@
 			files = (
 				040C649021606A0500ACADC7 /* Account+Codable.swift in Sources */,
 				0440E91021607EC300BCACF4 /* Video.swift in Sources */,
+				04D73DBE22815DAA00403569 /* SettingsHeaderTableViewCell.swift in Sources */,
 				0440E8FF2160758B00BCACF4 /* Subscription.swift in Sources */,
 				0440EC062160A38C00BCACF4 /* DGElasticPullToRefreshExtensions.swift in Sources */,
 				0440E909216076C100BCACF4 /* Subscription+Codable.swift in Sources */,
 				0440EC052160A38C00BCACF4 /* DGElasticPullToRefreshConstants.swift in Sources */,
+				04D73DB822813F3D00403569 /* ProfileViewController.swift in Sources */,
 				0440EC072160A38C00BCACF4 /* DGElasticPullToRefreshLoadingView.swift in Sources */,
 				0440ECDF2160B9A200BCACF4 /* Array+Extensions.swift in Sources */,
 				0440E91B21608FBE00BCACF4 /* VideoCollectionViewCell.swift in Sources */,
@@ -1655,6 +1714,7 @@
 				0440EC042160A38C00BCACF4 /* DGElasticPullToRefreshView.swift in Sources */,
 				0440EC092160B0DD00BCACF4 /* UINavigationBar+Extensions.swift in Sources */,
 				044CCBFF214F9C5200569030 /* AwesomeTextField.swift in Sources */,
+				04D73DBA2281547000403569 /* Account+Network.swift in Sources */,
 				0440E90E21607C1800BCACF4 /* DateFormatter+Extensions.swift in Sources */,
 				0440ECDB2160B43000BCACF4 /* Creator+Codable.swift in Sources */,
 				0440ECD92160B3FA00BCACF4 /* Creator.swift in Sources */,

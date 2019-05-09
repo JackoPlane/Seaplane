@@ -22,8 +22,8 @@ public extension Subscription {
         case plan
     }
 
-    // MARK: - Decoding
-
+    
+    // MARK: - Coding
     // ------------------------------------------------------------------------------
 
     init(from decoder: Decoder) throws {
@@ -36,11 +36,20 @@ public extension Subscription {
         endDate = try? values.decode(Date.self, forKey: .endDate)
         plan = try? values.decode(Plan.self, forKey: .plan)
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(creator, forKey: .creator)
+        try container.encode(startDate, forKey: .startDate)
+        try container.encode(endDate, forKey: .endDate)
+        try container.encode(plan, forKey: .plan)
+    }
 }
 
 public extension Subscription.Plan {
+    
     // MARK: - Coding Keys
-
     // ------------------------------------------------------------------------------
 
     enum CodingKeys: String, CodingKey {
@@ -53,4 +62,5 @@ public extension Subscription.Plan {
         case intervalCount
         case logo
     }
+    
 }

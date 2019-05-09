@@ -1,0 +1,6 @@
+[submodule "Vendor/Kingfisher"]
+	path = Vendor/Kingfisher
+	url = https://github.com/onevcat/Kingfisher.git
+[submodule "Vendor/Alamofire"]
+	path = Vendor/Alamofire
+	url = https://github.com/Alamofire/Alamofire.git

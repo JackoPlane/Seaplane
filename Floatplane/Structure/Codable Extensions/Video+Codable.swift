@@ -31,7 +31,6 @@ public extension Video {
     }
 
     // MARK: - Decoding
-
     // ------------------------------------------------------------------------------
 
     init(from decoder: Decoder) throws {

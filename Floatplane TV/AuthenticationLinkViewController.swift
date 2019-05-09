@@ -29,7 +29,6 @@ public class AuthenticationLinkViewController: UIViewController {
     func startVoucherClient() {
         voucher = VoucherClient(uniqueSharedId: "floatplane")
         voucher!.startSearching { [unowned self] authData, _, _ in
-
             // (authData is of type NSData)
             if let authData = authData {
                 // User granted permission on iOS app!

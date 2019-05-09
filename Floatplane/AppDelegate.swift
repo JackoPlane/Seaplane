@@ -53,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     public func startVoucherServer() {
         voucherServer = VoucherServer(uniqueSharedId: "Floatplane")
         voucherServer?.startAdvertising { (displayName, responseHandler) -> Void in
-
 //            let alertController = UIAlertController(title: "Allow Auth?", message: "Allow \"\(displayName)\" access to your login?", preferredStyle: .alert)
 //            alertController.addAction(UIAlertAction(title: "Not Now", style: .cancel, handler: { action in
 //                responseHandler(nil, nil)

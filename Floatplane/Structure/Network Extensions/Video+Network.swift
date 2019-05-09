@@ -59,7 +59,7 @@ public extension Video {
         AF.request(url, method: .get, parameters: parameters)
             .printCurl()
             .responseJSON(completionHandler: { response in
-                completion?(response.result.value as? String)
+                completion?(try? response.result.get() as? String)
             })
     }
 }
